@@ -1,0 +1,32 @@
+db:
+    image: mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=youpi
+    - MYSQL_DATABASE=symfony_db
+    - MYSQL_USER=symfony_db
+    - MYSQL_PASSWORD=symfony_pass
+
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+    - db
+    ports:
+    - 8181:80
+    environment:
+    - MYSQL_USERNAME=root
+    - MYSQL_ROOT_PASSWORD=youpi
+
+web-php:
+    build: web-php
+    ports:
+    - 82:80
+    volumes:
+    - /home/peggy/Desktop/Docker-symfony/symfony_test/:/var/www/html
+    links:
+    - db
+    dns:
+    #OpenDNS
+    - 208.67.222.222
+    - 208.67.220.220
+
+
